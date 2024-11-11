@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+
+{% block navbar %}
+{%if user.is_authenticated %} 
+<nav>
+    <span class="padlock"></span>
+    <a href="#">Securevault</a>
+    <a href="{% url 'password_list' %}" class="button">Suas Senhas</a>
+    <a href="{% url 'logout' %}" class="button">Deslogar</a>
+    
+</nav>
+{%else%}
+<nav>
+    <span class="padlock"></span>
+    <a href="{% url 'register' %}" class="button">Registre-se!</a>
+    <a href="{% url 'login' %}" class="button">Login</a>
+</nav>
+{%endif%}
+
+{%endblock%}
+
+
+
+
+{% block content %} 
+
+    {%for message in messages%}
+        <div class = "message {{message.tags}}">
+            {{message}}
+        </div>
+    {% endfor %}
+
+    {% if user.is_authenticated %} 
+        <div class = "center">            
+            <h1>Bem vindo, {{user.username}}!!</h1>
+        </div>
+    {% else %}
+        <div class = "center">            
+        </div>
+
+    {% endif %}
+
+{% endblock %}
